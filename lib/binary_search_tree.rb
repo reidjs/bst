@@ -100,16 +100,14 @@ class BinarySearchTree
       traverse_right = in_order_traversal(tree_node.right, arr)
     end
     arr
-    # return arr if tree_node.num_children == 0
-    # node = tree_node.left 
-    # while node.left 
-    #   node = node.left 
-    # end 
-    # arr + [node.value]
-    # arr + [node.parent.value]
-    # byebug
-    # in_order_traversal(node.right, arr)
-
+  end
+  def self.in_order_traversal2(tree_node = @root, arr = [])
+    if tree_node
+      traverse_left = self.in_order_traversal2(tree_node.left, arr)
+      arr << tree_node 
+      traverse_right = self.in_order_traversal2(tree_node.right, arr)
+    end
+    arr
   end
 
 
