@@ -75,14 +75,8 @@ class BinarySearchTree
   end
 
   def depth(tree_node = @root)
-    #follow all paths to their limit 
     node = tree_node 
-    max_depth(node)
-    # byebug
-    #go all the way left 
-    #go up to parent and store parent pointer in queue 
-    #go all the way right
-    #
+    max_depth(node) - 1
   end 
 
   def max_depth(node, counter = 0)
@@ -95,11 +89,17 @@ class BinarySearchTree
     else 
       return right_depth 
     end 
-    # p left_depth
-    # byebug
   end 
 
   def is_balanced?(tree_node = @root)
+    #difference in depth between left and right subtrees is at most 1 
+    return true if tree_node.nil? || tree_node.num_children == 0
+    left_tree_depth = depth(tree_node.left)
+    right_tree_depth = depth(tree_node.right)
+    left_balanced = is_balanced?(tree_node.left)
+    right_balanced = is_balanced?(tree_node.right)
+    left_balanced && right_balanced && (left_tree_depth - right_tree_depth).abs <= 1
+    # debugger 
   end
 
   #essentially a depth first search - go to min value then work up
@@ -133,9 +133,9 @@ bst.insert(1)
 bst.insert(8)
 bst.insert(7)
 bst.insert(6)
-# bst.insert(5.5)
+bst.insert(5.5)
 
-p bst.depth
+p bst.is_balanced?
 # debugger 
 # binding.pry
 # p bst.find(7)
