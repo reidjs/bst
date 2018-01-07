@@ -52,7 +52,14 @@ class BinarySearchTree
       child = node.children[0]
       node.parent.replace_child(value, child)
     else 
+      # two children
+      #get maximum of the left children 
+      replacement_node = maximum(node.left)
       # byebug
+      replacement_node.parent.replace_child(replacement_node.value, replacement_node.left)
+      replacement_node.left = node.left 
+      replacement_node.right = node.right
+      node.parent.replace_child(value, replacement_node)
     end 
     # byebug
   end
