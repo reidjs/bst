@@ -12,4 +12,22 @@ class BSTNode
     node.parent = self 
     @right = node
   end 
+  def num_children 
+    children.length 
+  end 
+  def children
+    [@left, @right]
+  end 
+  def remove_child(value)
+    if value == @left.value 
+      @left = nil
+    elsif value == @right.value 
+      @right = nil  
+    else 
+      return nil
+    end 
+  end 
+  # def remove_child(value)
+  #   if node.left == 
+  # end 
 end
