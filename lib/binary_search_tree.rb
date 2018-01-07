@@ -79,17 +79,7 @@ class BinarySearchTree
     max_depth(node) - 1
   end 
 
-  def max_depth(node, counter = 0)
-    return counter if node.nil?
-    counter += 1
-    left_depth = max_depth(node.left, counter)
-    right_depth = max_depth(node.right, counter)
-    if left_depth > right_depth 
-      return left_depth 
-    else 
-      return right_depth 
-    end 
-  end 
+  
 
   def is_balanced?(tree_node = @root)
     #difference in depth between left and right subtrees is at most 1 
@@ -104,25 +94,38 @@ class BinarySearchTree
 
   #essentially a depth first search - go to min value then work up
   def in_order_traversal(tree_node = @root, arr = [])
-    node = tree_node 
-
-    while node.left 
-      node = node.left 
-    end 
-    arr << node.value
-    node = node.parent 
-    arr << node.value 
-    node = node.right 
-    while node.right 
-      arr << node.value 
-      node = node.right 
-    end 
+    if tree_node
+      traverse_left = in_order_traversal(tree_node.left, arr)
+      arr << tree_node.value 
+      traverse_right = in_order_traversal(tree_node.right, arr)
+    end
+    arr
+    # return arr if tree_node.num_children == 0
+    # node = tree_node.left 
+    # while node.left 
+    #   node = node.left 
+    # end 
+    # arr + [node.value]
+    # arr + [node.parent.value]
+    # byebug
+    # in_order_traversal(node.right, arr)
 
   end
 
 
   private
   # optional helper methods go here:
+  def max_depth(node, counter = 0)
+    return counter if node.nil?
+    counter += 1
+    left_depth = max_depth(node.left, counter)
+    right_depth = max_depth(node.right, counter)
+    if left_depth > right_depth 
+      return left_depth 
+    else 
+      return right_depth 
+    end 
+  end 
 
 end
 
@@ -135,7 +138,7 @@ bst.insert(7)
 bst.insert(6)
 bst.insert(5.5)
 
-p bst.is_balanced?
+p bst.in_order_traversal
 # debugger 
 # binding.pry
 # p bst.find(7)
