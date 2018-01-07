@@ -2,6 +2,7 @@
 # to methods as you see fit, or to create helper methods.
 require_relative 'bst_node'
 require 'byebug'
+require 'pry'
 class BinarySearchTree
   attr_accessor :root
   def initialize
@@ -48,7 +49,8 @@ class BinarySearchTree
       node.parent.remove_child(value)
       # byebug 
     elsif node.num_children == 1
-      # byebug 
+      child = node.children[0]
+      node.parent.replace_child(value, child)
     else 
       # byebug
     end 
@@ -57,6 +59,12 @@ class BinarySearchTree
 
   # helper method for #delete:
   def maximum(tree_node = @root)
+    node = tree_node 
+    #go right as far as possible 
+    while node.right 
+      node = node.right 
+    end 
+    node 
   end
 
   def depth(tree_node = @root)
@@ -95,5 +103,6 @@ bst.insert(3)
 bst.insert(1)
 bst.insert(8)
 bst.insert(7)
-
+# debugger 
+# binding.pry
 # p bst.find(7)
